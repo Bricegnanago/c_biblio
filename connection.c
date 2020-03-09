@@ -2,15 +2,28 @@
 #include <stdlib.h>
 #include "biblio.h"
 
-#define SHELLSCRIPT "\
+#define BOOK_STAT "\
 #/bin/bash \n\
-python python/bd_con.py \n\
+python python/stat_book.py \n\
 "
 
-#define toto "\
+#define BORROW_STAT "\
 #/bin/bash \n\
-python python/bd_con.py \n\
+python python/stat_borrow.py \n\
 "
+
+#define GLOBAL_STAT "\
+#/bin/bash \n\
+python python/global_stat.py \n\
+"
+
+
+
+// On veut savoir les étudiants qui lisent beaucoup
+// Le pourcentage d'etudiant ayant emprunté sans retourner le livre
+
+
+
 int main(int argc, char **argv)
 {
     int choix;
@@ -42,24 +55,24 @@ int main(int argc, char **argv)
 
     do
     {
-        printf("**********************************\n");
+        printf("*************************************************************\n");
         printf("\t 1 > Gerer client \n");
-        printf("**********************************\n");
+        printf("*************************************************************\n");
 
-        printf("**********************************\n");
+        printf("*************************************************************\n");
         printf("\t 2 -> Gerer pour livre \n");
-        printf("**********************************\n");
+        printf("*************************************************************\n");
 
-        printf("**********************************\n");
+        printf("*************************************************************\n");
         printf("\t 3 -> Enregistrer un emprunt \n");
-        printf("**********************************\n");
+        printf("*************************************************************\n");
 
-        printf("**********************************\n");
+        printf("*************************************************************\n");
         printf("\t 4 -> Enregistrer un depot \n");
-        printf("**********************************\n");
-        printf("**********************************\n");
+        printf("*************************************************************\n");
+        printf("*************************************************************\n");
         printf("\t 0 -> Quitter le programme \n");
-        printf("**********************************\n");
+        printf("*************************************************************\n");
         printf("Votre choix : ");
         scanf("%d", &choix);
 
@@ -67,17 +80,17 @@ int main(int argc, char **argv)
         {
             case 1:
                 //Le choix est client
-                printf("**********************************\n");
+                printf("*************************************************************\n");
                 printf("\t 11 ->  Creer enregistrer un nouveau client \n");
-                printf("**********************************\n");
+                printf("*************************************************************\n");
 
-                printf("**********************************\n");
+                printf("*************************************************************\n");
                 printf("\t 12 -> Mettre à jour les donnees d'un client \n");
-                printf("**********************************\n");
+                printf("*************************************************************\n");
 
-                printf("**********************************\n");
+                printf("*************************************************************\n");
                 printf("\t 13 -> supprimer un client \n");
-                printf("**********************************\n");
+                printf("*************************************************************\n");
 
                 printf("Votre choix : ");
                 scanf("%d", &choix_operation_on);
@@ -157,21 +170,21 @@ int main(int argc, char **argv)
             case 2:
                 //Le choix est livre
                 //Afficher avant la liste de tous les utilisateurs
-                printf("**********************************\n");
+                printf("*************************************************************\n");
                 printf("\t 21 ->  Creer enregistrer un nouveau Livre \n");
-                printf("**********************************\n");
+                printf("*************************************************************\n");
 
-                printf("**********************************\n");
+                printf("*************************************************************\n");
                 printf("\t 22 -> Mettre à jour les donnees d'un Livre \n");
-                printf("**********************************\n");
+                printf("*************************************************************\n");
 
-                printf("**********************************\n");
+                printf("*************************************************************\n");
                 printf("\t 23 -> supprimer un Livre \n");
-                printf("**********************************\n");
+                printf("*************************************************************\n");
 
-                printf("**********************************\n");
+                printf("*************************************************************\n");
                 printf("\t 24 -> Statistique un Livre \n");
-                printf("**********************************\n");
+                printf("*************************************************************\n");
 
                 printf("Votre choix : ");
                 scanf("%d", &choix_operation_on);
@@ -250,7 +263,7 @@ int main(int argc, char **argv)
                     break; 
                 case 24:
                     //suppression code of book
-                    system(SHELLSCRIPT);
+                    system(BOOK_STAT);
                     break;             
                 default:
                     printf("Saisie incorrecte");
@@ -260,20 +273,49 @@ int main(int argc, char **argv)
                 break;
             
             case 3:
-                // code empreint            
-                printf("Quel livre aimeriez-vous emprunter ?\n\n");
-                /********* Info Client ********/
-                printf("Veuillez saisir le nom du client : ");
-                scanf("%s", client.firstname);
-                printf("Veuillez saisir le numero de carte du client : ");
-                scanf("%s", client.numcart);
+                // code empreint
 
-                printf("Saisir ici le title du livre : ");
-                scanf("%s", bookHost.title);
+                    //Le choix est livre
+                //Afficher avant la liste de tous les utilisateurs
+                printf("*************************************************************\n");
+                printf("\t 31 -> Enregistrer un nouvel emprunt \n");
+                printf("*************************************************************\n");
 
-                borrowOneBook(bookHost, client, user_session);
+                printf("*************************************************************\n");
+                printf("\t 32 -> Visualiser les statistiques \n");
+                printf("*************************************************************\n");
+
+                printf("Votre choix : ");
+                scanf("%d", &choix_operation_on);
+
+                switch (choix_operation_on)
+                {
+                case 31:
+                     printf("Quel livre aimeriez-vous emprunter ?\n\n");
+                    /********* Info Client ********/
+                    printf("Veuillez saisir le nom du client : ");
+                    scanf("%s", client.firstname);
+                    printf("Veuillez saisir le numero de carte du client : ");
+                    scanf("%s", client.numcart);
+
+                    printf("Saisir ici le title du livre : ");
+                    scanf("%s", bookHost.title);
+
+                    borrowOneBook(bookHost, client, user_session);
+                     
+                    break;
                 
-                printf("*********** \n\n Opération effectuée avec succès ***************** \n\n");
+                case 32:
+                    printf("\nVeuillez patienter svp...\n");
+                    system(BORROW_STAT);     
+                    break;
+                default:
+                    printf("Saisie incorrecte");
+                    break;
+                }
+               
+               
+                printf("\n\n********************** Opération effectuée avec succès ********************** \n\n");
                 break;
 
             case 4:
@@ -285,7 +327,7 @@ int main(int argc, char **argv)
                 printf("Veuillez saisir le numero de carte du client : ");
                 scanf("%s", client.numcart);
                 
-
+                
                 printf("Saisir ici le title du livre : ");
                 scanf("%s", bookHost.title);
 

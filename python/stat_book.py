@@ -18,18 +18,15 @@ quantities = mycursor.fetchall()
 mycursor.execute("SELECT title FROM Book")
 titles = mycursor.fetchall()
 
-# mycursor.execute("SELECT title FROM Book")
+mycursor.execute("SELECT title FROM Book")
 
-# titles = mycursor.fetchall()
+titles = mycursor.fetchall()
 
 # print(type(myresult))
 # myresult = list()
 
 q = []
 title = []
-# for i in quantities:     
-#   qty.append(i)
-
 for x in quantities:
   q.append(x[0])
   print(x)
@@ -43,7 +40,12 @@ print(title)
 name = title
 data = q
 
-plt.pie(data, labels=name, autopct='%.3f', startangle=90, shadow=True)
+plt.title('ESTIMATION DU POURCENTAGE DU NOMBRE DE LIVRES ENREGISTRES')
+plt.pie(data, labels=name, autopct='%.2f', startangle=90, shadow=True)
 plt.axis('equal')
+
 plt.show()
+
+
+# plt.show()
  
